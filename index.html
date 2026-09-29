@@ -550,9 +550,8 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
       <a href="#contact" class="btn btn--light" download="Aniket_Kinage_CV.pdf" data-cv><span>Download CV</span> <i class="fas fa-download"></i></a>
     </div>
     <form id="contact-form">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <input type="hidden" name="access_key" value="2b0d6898-4f44-4668-a62b-8131e6c855d7">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
       <div class="field"><label class="sr" for="cf-name">Name</label><input id="cf-name" type="text" name="name" placeholder="Name" required><i class="fas fa-user" aria-hidden="true"></i></div>
       <div class="field"><label class="sr" for="cf-email">Email</label><input id="cf-email" type="email" name="email" placeholder="Email" required><i class="fas fa-envelope" aria-hidden="true"></i></div>
       <div class="field"><label class="sr" for="cf-subject">Subject</label><input id="cf-subject" type="text" name="subject" placeholder="Subject"><i class="fas fa-tag" aria-hidden="true"></i></div>
@@ -706,7 +705,7 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
     items.forEach(function (i) { io.observe(i); });
   } else { items.forEach(function (i) { i.classList.add("in"); }); }
 
-  // Contact form -> FormSubmit (same approach as the VR Insulation site)
+  // Contact form -> Web3Forms
   var form = document.getElementById("contact-form");
   var status = form.querySelector(".form-status");
   var sendBtn = form.querySelector('button[type="submit"]');
@@ -716,8 +715,10 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
     status.className = "form-status";
     status.textContent = "Sending your message...";
     var fd = new FormData(form);
-    fd.set("_subject", "Portfolio enquiry: " + (form.subject.value || form.name.value));
-    fetch("https://formsubmit.co/ajax/aniketkinage20@gmail.com", {
+    fd.set("subject", "Portfolio enquiry: " + (form.subject.value || form.name.value));
+    fd.set("from_name", "Aniket Kinage Portfolio");
+    fd.set("replyto", form.email.value);
+    fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: { "Accept": "application/json" },
       body: fd
@@ -727,9 +728,6 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
         status.className = "form-status ok";
         status.textContent = "Thank you! Your message has been sent. I'll get back to you soon.";
         form.reset();
-      } else if (data && /activation/i.test(data.message || "")) {
-        status.className = "form-status ok";
-        status.textContent = "Almost there: this form needs a one-time activation. Please check the aniketkinage20@gmail.com inbox (and spam folder) for an email from FormSubmit and click \"Activate Form\", then send your message again.";
       } else {
         status.className = "form-status err";
         status.textContent = (data && data.message) ? data.message : "Something went wrong sending this form. Please email me directly at aniketkinage20@gmail.com.";
