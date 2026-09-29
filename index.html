@@ -703,7 +703,7 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
     items.forEach(function (i) { io.observe(i); });
   } else { items.forEach(function (i) { i.classList.add("in"); }); }
 
-  // Contact form -> sent to kingofficial1998@gmail.com via FormSubmit (no email app needed)
+  // Contact form -> sent to aniketkinage20@gmail.com via FormSubmit (no email app needed)
   var form = document.getElementById("contact-form");
   var status = form.querySelector(".form-status");
   var sendBtn = form.querySelector('button[type="submit"]');
@@ -716,11 +716,11 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
       _replyto: f.email.value, _template: "table", _captcha: "false"
     };
     sendBtn.disabled = true; status.className = "form-status"; status.textContent = "Sending…";
-    fetch("https://formsubmit.co/ajax/kingofficial1998@gmail.com", {
+    fetch("https://formsubmit.co/ajax/aniketkinage20@gmail.com", {
       method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(data)
     }).then(function (r) { return r.json().then(function (j) { if (!r.ok || String(j.success) !== "true") throw new Error(j.message || "Send failed"); }); })
       .then(function () { status.className = "form-status ok"; status.textContent = "Thanks! Your message has been sent. I'll get back to you soon."; f.reset(); })
-      .catch(function () { status.className = "form-status err"; status.innerHTML = 'Sorry, the message could not be sent. Please email me at <a href="mailto:kingofficial1998@gmail.com">kingofficial1998@gmail.com</a>.'; })
+      .catch(function () { status.className = "form-status err"; status.innerHTML = 'Sorry, the message could not be sent. Please email me at <a href="mailto:aniketkinage20@gmail.com">aniketkinage20@gmail.com</a>.'; })
       .then(function () { sendBtn.disabled = false; });
   });
 
