@@ -718,9 +718,16 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
     sendBtn.disabled = true; status.className = "form-status"; status.textContent = "Sending…";
     fetch("https://formsubmit.co/ajax/aniketkinage20@gmail.com", {
       method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(data)
-    }).then(function (r) { return r.json().then(function (j) { if (!r.ok || String(j.success) !== "true") throw new Error(j.message || "Send failed"); }); })
+    }).then(function (r) { return r.text().then(function (txt) { var j = {}; try { j = JSON.parse(txt); } catch (e) {}
+        if (r.ok && String(j.success) === "true") return;
+        var err = new Error(j.message || ("HTTP " + r.status)); err.server = j.message || ""; throw err; }); })
       .then(function () { status.className = "form-status ok"; status.textContent = "Thanks! Your message has been sent. I'll get back to you soon."; f.reset(); })
-      .catch(function () { status.className = "form-status err"; status.innerHTML = 'Sorry, the message could not be sent. Please email me at <a href="mailto:aniketkinage20@gmail.com">aniketkinage20@gmail.com</a>.'; })
+      .catch(function (err) {
+        var m = (err && err.server) || "";
+        if (/activat/i.test(m)) { status.className = "form-status ok"; status.textContent = "Almost there: this form needs a one-time activation. Please check the aniketkinage20@gmail.com inbox (and Spam) for the FormSubmit email and click Activate Form."; return; }
+        status.className = "form-status err";
+        status.innerHTML = 'Sorry, the message could not be sent' + (m ? ' (' + m.replace(/[<>&]/g, "") + ')' : '') + '. Please email me at <a href="mailto:aniketkinage20@gmail.com">aniketkinage20@gmail.com</a>.';
+        if (window.console) console.error("Contact form error:", err); })
       .then(function () { sendBtn.disabled = false; });
   });
 
