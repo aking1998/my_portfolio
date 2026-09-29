@@ -703,33 +703,26 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
     items.forEach(function (i) { io.observe(i); });
   } else { items.forEach(function (i) { i.classList.add("in"); }); }
 
-  // Contact form -> sent to aniketkinage20@gmail.com via FormSubmit (no email app needed)
+  // Contact form -> FormSubmit (normal POST, returns to this page with ?sent=1)
   var form = document.getElementById("contact-form");
   var status = form.querySelector(".form-status");
   var sendBtn = form.querySelector('button[type="submit"]');
+  form.setAttribute("action", "https://formsubmit.co/aniketkinage20@gmail.com");
+  form.setAttribute("method", "POST");
+  function hidden(n, v) { var i = form.querySelector('input[name="' + n + '"]'); if (!i) { i = document.createElement("input"); i.type = "hidden"; i.name = n; form.appendChild(i); } i.value = v; }
+  var onFile = location.protocol === "file:";
   form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var f = form;
-    var data = {
-      name: f.name.value, email: f.email.value, subject: f.subject.value, message: f.message.value,
-      _subject: "Portfolio enquiry: " + (f.subject.value || f.name.value),
-      _replyto: f.email.value, _template: "table", _captcha: "false"
-    };
+    if (onFile) { e.preventDefault(); status.className = "form-status err"; status.innerHTML = 'The form only works on the live website. For now, please email me at <a href="mailto:aniketkinage20@gmail.com">aniketkinage20@gmail.com</a>.'; return; }
+    var back = location.href.split("#")[0].split("?")[0] + "?sent=1#contact";
+    hidden("_next", back); hidden("_captcha", "false"); hidden("_template", "table");
+    hidden("_subject", "Portfolio enquiry: " + (form.subject.value || form.name.value));
+    hidden("_replyto", form.email.value);
     sendBtn.disabled = true; status.className = "form-status"; status.textContent = "Sending…";
-    fetch("https://formsubmit.co/ajax/aniketkinage20@gmail.com", {
-      method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(data)
-    }).then(function (r) { return r.text().then(function (txt) { var j = {}; try { j = JSON.parse(txt); } catch (e) {}
-        if (r.ok && String(j.success) === "true") return;
-        var err = new Error(j.message || ("HTTP " + r.status)); err.server = j.message || ""; throw err; }); })
-      .then(function () { status.className = "form-status ok"; status.textContent = "Thanks! Your message has been sent. I'll get back to you soon."; f.reset(); })
-      .catch(function (err) {
-        var m = (err && err.server) || "";
-        if (/activat/i.test(m)) { status.className = "form-status ok"; status.textContent = "Almost there: this form needs a one-time activation. Please check the aniketkinage20@gmail.com inbox (and Spam) for the FormSubmit email and click Activate Form."; return; }
-        status.className = "form-status err";
-        status.innerHTML = 'Sorry, the message could not be sent' + (m ? ' (' + m.replace(/[<>&]/g, "") + ')' : '') + '. Please email me at <a href="mailto:aniketkinage20@gmail.com">aniketkinage20@gmail.com</a>.';
-        if (window.console) console.error("Contact form error:", err); })
-      .then(function () { sendBtn.disabled = false; });
   });
+  if (/[?&]sent=1/.test(location.search)) {
+    status.className = "form-status ok"; status.textContent = "Thanks! Your message has been sent. I'll get back to you soon.";
+    if (history.replaceState) history.replaceState(null, "", location.pathname + "#contact");
+  }
 
   // Light particle network in the hero (pauses when off screen)
   var canvas = document.getElementById("particles");
