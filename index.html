@@ -62,6 +62,13 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
 .navbar a.active { color: #fff; background: var(--primary); box-shadow: 0 6px 16px -6px rgba(37, 6, 173, .7); }
 .nav-actions { display: flex; align-items: center; gap: 1rem; }
 .nav-cv { display: inline-flex; align-items: center; gap: .8rem; padding: 1rem 2rem; border-radius: 99rem; font-size: 1.45rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, var(--accent), #ff9a3c); box-shadow: 0 8px 18px -8px rgba(255, 123, 0, .8); transition: transform .2s, box-shadow .2s; white-space: nowrap; }
+.nav-book { display: inline-flex; align-items: center; gap: .8rem; padding: 1rem 2rem; border-radius: 99rem; font-size: 1.45rem; font-weight: 600; color: #fff; background: var(--primary); box-shadow: 0 8px 18px -8px rgba(37, 6, 173, .7); transition: transform .2s, background .2s; white-space: nowrap; }
+.nav-book:hover { transform: translateY(-2px); background: var(--primary-dark); }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 1.4rem; }
+.hero-book { font-size: 1.6rem; padding: 1.4rem 2.8rem; }
+.section-sub { text-align: center; font-size: 1.8rem; color: #5a6072; margin: -2rem auto 3.5rem; max-width: 60rem; }
+.svc--ai { border: 1.5px solid rgba(140, 79, 255, .35); background: linear-gradient(180deg, #faf7ff 0%, #fff 60%); }
+.svc-tag { position: absolute; top: 2rem; right: 2rem; display: inline-flex; align-items: center; gap: .5rem; font-size: 1.2rem; font-weight: 700; color: #6b2fe0; background: #efe6ff; padding: .5rem 1.1rem; border-radius: 99rem; }
 .nav-cv:hover { transform: translateY(-2px); box-shadow: 0 12px 22px -8px rgba(255, 123, 0, .9); }
 #menu { display: none; width: 4.4rem; height: 4.4rem; border-radius: 1.2rem; font-size: 2rem; color: var(--ink); background: rgba(37, 6, 173, .06); border: 1px solid rgba(37, 6, 173, .1); cursor: pointer; }
 
@@ -304,6 +311,8 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
 .startup-btn:hover { transform: translateY(-2px); }
 @media (max-width: 1000px) { .startup-grid { grid-template-columns: 1fr; max-width: 60rem; } }
 @media (max-width: 640px) { .startup-cta { padding: 2.6rem 2.2rem; } .startup-btn { width: 100%; justify-content: center; } }
+@media (max-width: 900px) { .hero-ctas { justify-content: center; } }
+@media (max-width: 640px) { .hero-ctas .btn { width: 100%; justify-content: center; } }
 /* ---------- Chat ---------- */
 #ai-launch { position: fixed; left: 2.4rem; bottom: 2.4rem; z-index: 60; display: inline-flex; align-items: center; gap: 1rem; padding: .8rem 1.8rem .8rem .8rem; border: 0; border-radius: 99rem; background: linear-gradient(135deg, var(--primary), var(--violet-2)); color: #fff; font: 600 1.5rem "Poppins", sans-serif; cursor: pointer; box-shadow: 0 14px 30px -12px rgba(37, 6, 173, .75); transition: transform .25s, box-shadow .25s; }
 #ai-launch:hover { transform: translateY(-3px); box-shadow: 0 18px 34px -12px rgba(37, 6, 173, .85); }
@@ -362,7 +371,7 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
 @media (max-width: 1100px) {
   section, header, .footer { padding-left: 6%; padding-right: 6%; }
 }
-@media (max-width: 1150px) {
+@media (max-width: 1360px) {
   #menu { display: grid; place-items: center; }
   .navbar { position: fixed; top: 7.4rem; right: 1.6rem; width: min(30rem, calc(100% - 3.2rem)); background: #fff; border-radius: 1.8rem; box-shadow: 0 24px 50px -20px rgba(2, 1, 51, .45); padding: 1rem; opacity: 0; transform: translateY(-10px) scale(.98); pointer-events: none; transition: opacity .2s, transform .2s; }
   .navbar.open { opacity: 1; transform: none; pointer-events: auto; }
@@ -384,7 +393,8 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
 @media (max-width: 640px) {
   html { font-size: 58%; }
   .nav-cv { padding: 1rem 1.4rem; }
-  .nav-cv .lbl { display: none; }
+  .nav-cv .lbl, .nav-book .lbl { display: none; }
+  .nav-book { padding: 1rem 1.4rem; }
   .about .box-container, .education .extras, .work .box-container { grid-template-columns: 1fr; }
   .education .box { flex-direction: column; }
   .education .box .image { flex-basis: 10rem; }
@@ -416,6 +426,7 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
     </ul>
   </nav>
   <div class="nav-actions">
+    <a href="#contact" class="nav-book" data-book><i class="far fa-calendar-check"></i><span class="lbl"> Book a call</span></a>
     <a href="#contact" class="nav-cv" download="Aniket_Kinage_CV.pdf" data-cv><i class="fas fa-download"></i><span class="lbl"> Resume</span></a>
     <button id="menu" aria-label="Open menu" aria-expanded="false" aria-controls="navbar"><i class="fas fa-bars"></i></button>
   </div>
@@ -429,7 +440,10 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
   <div class="content">
     <h2>Hi There,<br> I'm Aniket <span>Kinage</span></h2>
     <p>I am into <span class="typing">Data Engineering</span><span class="cursor" aria-hidden="true"></span></p>
-    <a href="#about" class="btn"><span>About Me</span> <i class="fas fa-arrow-circle-down"></i></a>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn startup-btn hero-book" data-book><i class="far fa-calendar-check"></i> <span>Book a free call</span></a>
+      <a href="#about" class="btn"><span>About Me</span> <i class="fas fa-arrow-circle-down"></i></a>
+    </div>
     <div class="socials">
       <ul class="social-icons">
         <li><a class="linkedin" aria-label="LinkedIn" href="https://www.linkedin.com/in/aniket-kinage" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a></li>
@@ -483,7 +497,8 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
 <!-- strengths section starts -->
 <section class="strengths" id="strengths">
   <h2 class="heading"><i class="fas fa-handshake"></i> What I <span>Bring</span></h2>
-  <div class="strength-grid"><div class="strength reveal"><div class="ic"><i class="fas fa-diagram-project"></i></div><div><h3>Production-grade pipeline design</h3><p>I build pipelines that are validated, idempotent and safe to re-run, so a bad file stops the load instead of corrupting the table.</p></div></div><div class="strength reveal"><div class="ic"><i class="fas fa-user-shield"></i></div><div><h3>End-to-end ownership</h3><p>I own pipelines from design to production: build, monitoring, alerting, documentation and handover.</p></div></div><div class="strength reveal"><div class="ic"><i class="fas fa-gauge-high"></i></div><div><h3>Performance &amp; cost tuning</h3><p>Made batch runs 40% faster by tuning PySpark, SQL and S3 partitioning, cutting AWS compute cost.</p></div></div><div class="strength reveal"><div class="ic"><i class="fas fa-robot"></i></div><div><h3>Automation mindset</h3><p>If a task repeats, I automate it: 90% of manual ETL and reporting automated, saving 15+ hours a week.</p></div></div><div class="strength reveal"><div class="ic"><i class="fas fa-shield-halved"></i></div><div><h3>Data quality &amp; governance</h3><p>Automated validation checks on every load, and careful, GDPR-aware handling of sensitive insurance data.</p></div></div><div class="strength reveal"><div class="ic"><i class="fas fa-comments"></i></div><div><h3>Business to data translation</h3><p>I turn stakeholder questions into data models and analytics-ready datasets, and explain technical trade-offs in plain language.</p></div></div><div class="strength reveal"><div class="ic"><i class="fas fa-people-group"></i></div><div><h3>Technical leadership</h3><p>Led two data analysts delivering executive Power BI reporting on top of the pipelines I built.</p></div></div><div class="strength reveal"><div class="ic"><i class="fas fa-laptop-house"></i></div><div><h3>Independent &amp; remote-ready</h3><p>Remote since 2022. I work autonomously, give clear updates and deliver to agreed scope, which suits contract work.</p></div></div></div>
+  <p class="section-sub">Reliable data, smarter automation and a lot less busywork.</p>
+  <div class="strength-grid"><div class="strength reveal"><div class="ic"><i class="fas fa-robot"></i></div><div><h3>AI agents that do the grunt work</h3><p>I build LLM-powered agents that clean messy files, answer data questions and draft reports, so your team stops doing it by hand.</p></div></div><div class="strength reveal"><div class="ic"><i class="fas fa-diagram-project"></i></div><div><h3>Pipelines that don&#x27;t break at 2am</h3><p>Validated, idempotent and safe to re-run. A bad file stops the load instead of quietly corrupting your tables.</p></div></div><div class="strength reveal"><div class="ic"><i class="fas fa-gauge-high"></i></div><div><h3>Faster runs, smaller AWS bills</h3><p>I made batch runs 40% faster by tuning PySpark, SQL and S3 partitioning, and cut compute cost along the way.</p></div></div><div class="strength reveal"><div class="ic"><i class="fas fa-bolt"></i></div><div><h3>If it repeats, I automate it</h3><p>90% of manual ETL and reporting automated, giving my team back 15+ hours every week.</p></div></div><div class="strength reveal"><div class="ic"><i class="fas fa-user-shield"></i></div><div><h3>Idea to production, fully owned</h3><p>Design, build, monitoring, alerting, documentation and handover. One person accountable end to end.</p></div></div><div class="strength reveal"><div class="ic"><i class="fas fa-shield-halved"></i></div><div><h3>Numbers you can trust</h3><p>Quality checks on every load, and careful, GDPR-aware handling of sensitive insurance data.</p></div></div><div class="strength reveal"><div class="ic"><i class="fas fa-comments"></i></div><div><h3>Fluent in business and data</h3><p>I turn stakeholder questions into clean data models, explain trade-offs in plain English, and led two analysts delivering executive Power BI reporting.</p></div></div><div class="strength reveal"><div class="ic"><i class="fas fa-laptop-house"></i></div><div><h3>Remote-ready from day one</h3><p>Remote since 2022. Clear updates, autonomous delivery and agreed scope, which is exactly what contract work needs.</p></div></div></div>
 </section>
 <!-- strengths section ends -->
 
@@ -544,13 +559,25 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
   <div class="startup-head reveal">
     <span class="startup-eyebrow"><i class="fas fa-rocket"></i> For startups &amp; growing teams</span>
     <h2>Looking for data expertise?</h2>
-    <p>I build and run the data pipelines and AI agents your team needs, so you can stop wrangling spreadsheets and focus on growing the business. Save weeks of engineering time without hiring a full-time data team.</p>
+    <p>I build the data pipelines, AI agents and LLM-powered tools your team needs, so you spend less time wrangling spreadsheets and more time growing the business. Senior data engineering, without the cost of a full-time hire.</p>
   </div>
   <div class="startup-grid">
+    <article class="svc svc--ai reveal">
+      <span class="svc-tag"><i class="fas fa-wand-magic-sparkles"></i> AI + LLMs</span>
+      <div class="svc-ic" style="--c:#8c4fff"><i class="fas fa-robot"></i></div>
+      <h3>AI Agents &amp; LLM Solutions</h3>
+      <p>LLM-powered agents that take over repetitive work and let your team talk to its data in plain English.</p>
+      <ul>
+        <li>Agents that clean messy files for you</li>
+        <li>Ask questions of your data, get answers</li>
+        <li>LLM-generated reports and summaries</li>
+      </ul>
+      <p class="svc-out"><i class="fas fa-clock"></i> I've saved my team 15+ hours a week</p>
+    </article>
     <article class="svc reveal">
       <div class="svc-ic" style="--c:#2506ad"><i class="fas fa-diagram-project"></i></div>
       <h3>ETL Pipeline Development</h3>
-      <p>Automated pipelines that pull data from your apps, files and APIs into one clean, reliable data warehouse on AWS.</p>
+      <p>Automated pipelines that pull data from your apps, files and APIs into one clean, reliable warehouse on AWS, ready for dashboards and AI.</p>
       <ul>
         <li>S3 data lake, Glue, Lambda, PySpark</li>
         <li>Validation and alerts built in</li>
@@ -569,21 +596,10 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
       </ul>
       <p class="svc-out"><i class="fas fa-gauge-high"></i> I made batch runs 40% faster at work</p>
     </article>
-    <article class="svc reveal">
-      <div class="svc-ic" style="--c:#8c4fff"><i class="fas fa-robot"></i></div>
-      <h3>AI Agents for Automation</h3>
-      <p>Custom AI agents that take over repetitive work: cleaning files, answering data questions and preparing reports.</p>
-      <ul>
-        <li>Data cleaning and file processing</li>
-        <li>Plain-English questions over your data</li>
-        <li>Automated reports and summaries</li>
-      </ul>
-      <p class="svc-out"><i class="fas fa-clock"></i> I've saved my team 15+ hours a week</p>
-    </article>
   </div>
   <div class="startup-cta reveal">
     <div>
-      <h3>Let's find where data and AI can save you time.</h3>
+      <h3>Let's find where data, AI and LLMs can save you time.</h3>
       <p>Free 30-minute call · No obligation · Remote, flexible engagement</p>
     </div>
     <a href="#contact" class="btn startup-btn" id="book-call"><i class="far fa-calendar-check"></i> <span>Book a free call</span></a>
@@ -760,7 +776,7 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
   onScroll();
 
   // Typing effect
-  var words = ["Data Engineering", "ETL Pipelines", "AWS Data Platforms", "Big Data with PySpark", "Data Warehousing", "AI Agents"];
+  var words = ["Data Engineering", "ETL Pipelines", "AWS Data Platforms", "Big Data with PySpark", "Data Warehousing", "AI Agents & LLMs", "LLM-powered Automation"];
   var el = document.querySelector(".typing");
   if (!reduce) {
     var w = 0, c = words[0].length, deleting = true;
@@ -787,7 +803,7 @@ header.scrolled { box-shadow: 0 10px 30px -18px rgba(2, 1, 51, .35); padding-top
   // Book-a-call button: set CALENDLY_URL to your Calendly link; empty = scroll to contact form
   var CALENDLY_URL = "https://calendly.com/aniketkinage";
   var bookBtn = document.getElementById("book-call");
-  if (CALENDLY_URL) { bookBtn.href = CALENDLY_URL; bookBtn.target = "_blank"; bookBtn.rel = "noopener"; }
+  if (CALENDLY_URL) { [bookBtn].concat([].slice.call(document.querySelectorAll("[data-book]"))).forEach(function (b) { if (!b) return; b.href = CALENDLY_URL; b.target = "_blank"; b.rel = "noopener"; }); }
 
   // Contact form -> Web3Forms
   var form = document.getElementById("contact-form");
